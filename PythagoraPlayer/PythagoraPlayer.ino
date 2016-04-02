@@ -1,22 +1,22 @@
 /*
- * ?????????????
+ * PythagoraPlayer
  */
 
-#define SPEAKER_PIN 12   // ???????????????
-#define BUTTON_PIN   8   // ????????
+#define SPEAKER_PIN 12
+#define BUTTON_PIN   8
 
-#define TONE3_A  220  // ?
-#define TONE3_B  247  // ?
-#define TONE4_C  262  // ?
-#define TONE4_CS 277  // ?#
-#define TONE4_D  294  // ?
-#define TONE4_E  330  // ?
-#define TONE4_F  349  // ??
-#define TONE4_FS 370  // ??#
-#define TONE4_G  392  // ?
-#define TONE4_A  440  // ?
-#define TONE4_B  494  // ?
-#define TONE5_C  523  // ?
+#define TONE3_A  220  // A3
+#define TONE3_B  247  // B3
+#define TONE4_C  262  // C4
+#define TONE4_CS 277  // C4#
+#define TONE4_D  294  // D4
+#define TONE4_E  330  // E4
+#define TONE4_F  349  // F4
+#define TONE4_FS 370  // F4#
+#define TONE4_G  392  // G4
+#define TONE4_A  440  // A4
+#define TONE4_B  494  // B4
+#define TONE5_C  523  // C5
 
 int score[] = {
   TONE4_D, TONE4_E, TONE4_D, TONE4_E, TONE4_G, TONE4_FS,TONE4_D, TONE4_E,
@@ -78,3 +78,4 @@ void loop() {
     }
   }
 }
+
