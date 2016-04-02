@@ -6,4 +6,4 @@
 配線イメージ
 ---
 
-![配線イメージ](wiring.svg)
+![配線イメージ](https://rawgit.com/moomoo-ya/pythagora-player/master/wiring.svg)
