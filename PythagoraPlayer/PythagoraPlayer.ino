@@ -2,9 +2,6 @@
  * PythagoraPlayer
  */
 
-#define SPEAKER_PIN 12
-#define BUTTON_PIN   8
-
 #define TONE3_A  220  // A3
 #define TONE3_B  247  // B3
 #define TONE4_C  262  // C4
@@ -35,47 +32,50 @@ int score[] = {
   TONE4_D, TONE4_E, TONE4_D, TONE4_E, TONE5_C, TONE4_B, TONE4_G
 };
 
+#define SPEAKER_PIN 12
+#define BUTTON_PIN   0
+
 int scoreLength;
-int sequencer;
-bool beep;
+volatile int sequencer;
+volatile bool beep;
+volatile unsigned long time_prev, time_now;
 
 void setup() {
   pinMode(SPEAKER_PIN, OUTPUT);
-  pinMode(BUTTON_PIN, INPUT);
 
   scoreLength = sizeof(score) / sizeof(int);
   sequencer = 0;
   beep = false;
+  time_prev = 0;
+  time_now = 0;
+
+  attachInterrupt(BUTTON_PIN, pressButton, CHANGE);
 }
 
 void loop() {
-  int result = LOW;
-  int lastResult = LOW;
-  int count = 0;
-
-  do {
-    result = digitalRead(BUTTON_PIN);
-    if(result == lastResult) {
-      count++;
-    } else {
-      lastResult = result;
-      count = 0;
-    }
-    delay(1);
-  } while(count < 10);
-
-  if (lastResult == HIGH) {
+  if (beep) {
     tone(SPEAKER_PIN, score[sequencer]);
-    beep = true;
   } else {
     noTone(SPEAKER_PIN);
-    if (beep) {
-      beep = false;
+  }
+}
+
+#define CHATALING_SPAN 20
+
+void pressButton() {
+  time_now = millis();
+  if (time_now - time_prev > CHATALING_SPAN) {
+    beep = !beep;
+    if (!beep) {
+      // OFF時 シーケンスインクリメント
       sequencer++;
+
+      // シーケンスリセット
       if (sequencer >= scoreLength) {
         sequencer = 0;
       }
     }
   }
+  time_prev = time_now;
 }
 
